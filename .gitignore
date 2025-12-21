@@ -1,7 +1,12 @@
+# 排除資料庫實際數據目錄
+database/data/
+postgres_data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
