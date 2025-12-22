@@ -1,0 +1,21 @@
+{
+    "name": "AIPE02-Frontend-Dev",
+    "dockerComposeFile": "../../docker-compose.yml",
+    "service": "frontend",
+    "runServices": [
+        "frontend",
+        "backend"
+    ],
+    "shutdownAction": "stopCompose",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
+    "remoteUser": "root"
+}
