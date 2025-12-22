@@ -2,10 +2,7 @@
     "name": "AIPE02-Backend-Dev",
     "dockerComposeFile": "../../docker-compose.yml",
     "service": "backend",
-    "runServices": [
-        "db",
-        "backend"
-    ],
+    "runServices": ["db"],
     "shutdownAction": "stopCompose",
     "workspaceFolder": "/app",
     "customizations": {
