@@ -9,6 +9,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD:-password}
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/import:/var/lib/mysql-files 
       - mysql_data:/var/lib/mysql
 
   backend:
