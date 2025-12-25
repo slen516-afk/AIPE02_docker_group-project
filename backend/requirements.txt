@@ -6,3 +6,5 @@ numpy
 matplotlib
 scikit-learn
 python-dotenv
+pymysql
+cryptography
