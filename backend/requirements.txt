@@ -8,3 +8,4 @@ scikit-learn
 python-dotenv
 pymysql
 cryptography
+sqlalchemy
