@@ -11,13 +11,13 @@
         "vscode": {
             "extensions": [
                 "ms-python.python",
-                "ms-python.vscode-pylance",       // 必裝：強大的 Python 代碼補全與檢查
-                "ms-toolsai.jupyter",             // 必裝：這樣你才能在 Container 裡跑 .ipynb
-                "mechatroner.rainbow-csv",        // 必裝：讓你這幾天看的 CSV 變彩色，欄位好對齊
+                "ms-python.vscode-pylance",       // 強大的 Python 代碼補全與檢查
+                "ms-toolsai.jupyter",             // 這樣你才能在 Container 裡跑 .ipynb
+                "mechatroner.rainbow-csv",        // 讓你這幾天看的 CSV 變彩色，欄位好對齊
                 "ms-azuretools.vscode-docker",
-                "mtxr.sqltools",                  // 推薦：直接在 VS Code 側邊欄點開看資料庫內容
-                "mtxr.sqltools-driver-mysql",     // 搭配 SQLTools 使用的 MySQL 驅動
-                "charliermarsh.ruff"              // 推薦：比 pylint 快非常多的代碼自動排版工具
+                "mtxr.sqltools",                  // 直接在 VS Code 側邊欄點開看資料庫內容
+                "mtxr.sqltools-driver-mysql",     // SQLTools 使用的 MySQL 驅動
+                "charliermarsh.ruff"              // 比 pylint 快非常多的代碼自動排版工具
             ]
         }
     },
