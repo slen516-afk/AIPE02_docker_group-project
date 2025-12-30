@@ -17,6 +17,7 @@ services:
     container_name: aipe02_backend
     volumes:
       - ./backend:/app
+      - ./database/import:/app/import_data
     env_file: .env
     depends_on:
       - db
