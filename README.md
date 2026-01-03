@@ -1,3 +1,5 @@
+#使用前請先記得清掉舊的容器
+
 # iSpan_AIPE02_T1_docker-project
 Team1_docker-project
 本專案使用 Docker 容器化技術，支援 VS Code Dev Containers 直接開發
