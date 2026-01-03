@@ -1,4 +1,5 @@
 #使用前請先記得清掉舊的容器
+#使.env required=flase
 
 # iSpan_AIPE02_T1_docker-project
 Team1_docker-project
