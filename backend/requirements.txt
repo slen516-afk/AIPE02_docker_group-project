@@ -1,0 +1,13 @@
+flask
+flask-cors
+psycopg2-binary
+pandas
+numpy
+matplotlib
+scikit-learn
+python-dotenv
+pymysql
+cryptography
+sqlalchemy
+fastapi
+uvicorn

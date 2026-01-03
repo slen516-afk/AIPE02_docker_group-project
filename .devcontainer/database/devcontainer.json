@@ -1,0 +1,23 @@
+{
+    "name": "AIPE02-Database-MySQL-Dev",
+    "dockerComposeFile": "../../docker-compose.yml",
+
+    "service": "db",
+
+    "runServices": [
+        "db"
+    ],
+
+    "shutdownAction": "stopCompose",
+
+    "workspaceFolder": "/",
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "cweijan.vscode-mysql-client2",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    }
+}

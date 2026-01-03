@@ -1,0 +1,34 @@
+/* frontend/static/css/hero.css */
+#hero {
+    position: relative;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    overflow: hidden;
+    background-color: #a2b4cf;
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(211, 41, 50, 0.6);
+    z-index: 1;
+}
+
+#hero .container {
+    position: relative;
+    z-index: 10;
+}
+
+@media (min-width: 1024px) {
+    #hero {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+    }
+}

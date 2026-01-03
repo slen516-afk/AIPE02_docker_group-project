@@ -1,0 +1,66 @@
+/* frontend/static/css/components.css */
+
+/* --- 數據表格 --- */
+.data-table {
+    width: 100%;
+    font-size: 0.875rem;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.data-table thead th {
+    padding: 0.75rem;
+    background-color: rgba(241, 245, 249, 0.8);
+    color: #334155;
+}
+
+/* --- 地圖樣式 --- */
+#map {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    aspect-ratio: 1.8 / 1;
+    height: auto !important;
+    background-color: rgb(233, 231, 231);
+    border-radius: 12px;
+    z-index: 10;
+    /* 給予一個明確但較低的數值 */
+    position: relative;
+    /* 必須設定 position，z-index 才會生效 */
+}
+
+@media (max-width: 768px) {
+    #map {
+        /* 取消長寬比依賴 */
+        aspect-ratio: unset !important;
+        /* 強制給定高度，避免消失 */
+        height: 300px !important;
+        min-height: 300px;
+        /* 寬度填滿 */
+        width: 100% !important;
+    }
+}
+
+/* 地圖互動樣式：滑鼠變手指 */
+.leaflet-interactive {
+    cursor: pointer;
+}
+
+/* --- 6. 移除 Leaflet 地圖討厭的焦點黑框 --- */
+.leaflet-container:focus,
+.leaflet-container *:focus,
+path.leaflet-interactive:focus,
+.leaflet-overlay-pane svg:focus {
+    outline: none !important;
+}
+
+/* --- 7. 地圖 Tooltip 美化 --- */
+.leaflet-tooltip {
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    font-size: 13px !important;
+    padding: 0 !important;
+    /* 讓內部 div 控制 padding */
+}

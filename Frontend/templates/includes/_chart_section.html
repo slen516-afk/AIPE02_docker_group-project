@@ -1,0 +1,37 @@
+<section id="{{ id }}" class="py-16 {{ bg }} scroll-mt-20">
+    <div class="container mx-auto px-4">
+        <h2 class="mb-8 text-3xl font-bold">{{ title }}</h2>
+        <div class="flex flex-col gap-8 {{ dir if dir else 'lg:flex-row' }} lg:items-center">
+
+            <div class="flex-1 rounded-xl bg-white p-6 shadow-sm border">
+                <canvas id="{{ canvas_id }}"></canvas>
+            </div>
+
+            <div class="flex-1">
+                {% if has_stats %}
+                <div class="bg-slate-100 p-8 rounded-xl mb-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded border">
+                            <p class="text-2xl font-bold">+23%</p>
+                            <p class="text-sm text-slate-500">週平均成長</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border">
+                            <p class="text-2xl font-bold">400</p>
+                            <p class="text-sm text-slate-500">峰值數據</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="rounded-xl {{ 'bg-slate-50' if not has_stats else '' }} p-6">
+                    <h3 class="text-xl font-semibold mb-4">{{ subtitle }}</h3>
+                    <p class="text-slate-600 mb-4">{{ desc }}</p>
+
+                    {% if has_table %}
+                    <div class="overflow-hidden rounded-lg border bg-white" id="{{ table_id }}"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
