@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求職詐騙分析-報告</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+</head>
+
+<body class="bg-white text-slate-900">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <button id="menu-toggle" class="fixed z-50 lg:hidden">
+        <i data-lucide="menu"></i>
+    </button>
+
+    <nav id="sidebar"
+        class="fixed left-0 top-0 z-40 h-full w-64 -translate-x-full transform transition-transform duration-300 lg:translate-x-0">
+        <div class="sidebar-bg absolute inset-0 z-0"></div>
+        <div class="relative z-10 flex h-full flex-col items-center justify-center p-6">
+            <div class="mb-12">
+                <div class="logo-box-outer">
+                    <div class="logo-box-inner">
+                        <h1 class="text-2xl tracking-widest text-white font-light text-center">
+                            目錄<br>導航
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <ul class="space-y-6 text-center w-full" id="nav-items">
+            </ul>
+            <div class="mt-auto text-xs text-slate-400">© 2024 REPORT</div>
+        </div>
+    </nav>
+
+    <div id="overlay" class="fixed inset-0 z-30 hidden bg-black/50 backdrop-blur-sm lg:hidden"></div>
+
+    <main class="lg:ml-64">
+        <section id="hero">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col-reverse gap-12 lg:flex-row lg:items-center lg:justify-between">
+                    <div class="flex-1 text-center lg:text-left z-10">
+                        <h1
+                            class="mb-6 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-white drop-shadow-md">
+                            求職詐騙分析
+                        </h1>
+                        <p class="mb-8 text-lg text-slate-200 md:text-xl max-w-2xl mx-auto lg:mx-0 font-light">
+                            什麼樣的職缺特徵，與詐騙高度相關？
+                        </p>
+                    </div>
+                    <div class="flex-1 flex justify-center lg:justify-end z-10">
+                        <img id="hero-wordcloud" src="{{ url_for('static', filename='image/test_image.png') }}"
+                            alt="數據文字雲" class="h-auto w-full max-w-md rounded-xl object-contain shadow-2xl lg:max-w-xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ranking" class="py-16 bg-slate-50/50 scroll-mt-20 border-b">
+            <div class="container mx-auto px-4">
+                <h2 class="mb-2 text-center text-3xl font-bold">虛假招募資料裡前五名高的職稱</h2>
+                <div class="mx-auto max-w-4xl rounded-xl bg-white p-8 shadow-sm border">
+                    <canvas id="rankingChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        {% with id="section-1", title="數據分析一：圓餅圖分析", canvas_id="pieChart", subtitle="類別分佈概況", desc="類別 A 佔據了
+        33%，具有重要的戰略意義。", dir="", bg="" %}
+        {% include 'includes/_chart_section.html' %}
+        {% endwith %}
+
+        {% with id="section-2", title="數據分析二：趨勢變化", canvas_id="lineChart", subtitle="半年度銷售趨勢",
+        desc="此圖表展示了過去六個月的銷售變化趨勢。", dir="lg:flex-row-reverse", bg="bg-slate-50/30 border-y", has_table=True,
+        table_id="table-container-1" %}
+        {% include 'includes/_chart_section.html' %}
+        {% endwith %}
+
+        {% with id="section-3", title="數據分析三：區域比較", canvas_id="areaChart", subtitle="數據峰值觀察",
+        desc="透過區域圖可以清楚看出累計數據的變化。", dir="", bg="", has_stats=True %}
+        {% include 'includes/_chart_section.html' %}
+        {% endwith %}
+
+        {% with id="section-4", title="數據分析四：多維評估", canvas_id="radarChart", subtitle="綜合維度分析",
+        desc="雷達圖能展示單一項目在不同屬性上的表現平衡度。", dir="lg:flex-row-reverse", bg="bg-slate-50/30 border-y", has_table=True,
+        table_id="table-container-2" %}
+        {% include 'includes/_chart_section.html' %}
+        {% endwith %}
+
+        {% with id="section-5", title="數據分析五：分組對比分析", canvas_id="groupedBarChart", subtitle="分組數據觀察",
+        desc="展示不同類別在多個維度下的對比情況。", dir="", bg="" %}
+        {% include 'includes/_chart_section.html' %}
+        {% endwith %}
+
+        {% with id="section-6", title="數據分析六：成分結構分析", canvas_id="stackedBarChart", subtitle="累積貢獻度分析",
+        desc="堆疊圖能清晰顯示總量以及各組成部分的佔比。", dir="lg:flex-row-reverse", bg="bg-slate-50/30 border-y" %}
+        {% include 'includes/_chart_section.html' %}
+        {% endwith %}
+
+        {% with id="section-7", title="數據分析七：相關性分析", canvas_id="scatterChart", subtitle="變量關聯觀察",
+        desc="散點圖用於探索兩個數值變量之間的相關程度。", dir="", bg="" %}
+        {% include 'includes/_chart_section.html' %}
+        {% endwith %}
+
+        {% include 'includes/_world_map.html' %}
+
+        <footer class="border-t py-12 text-center text-slate-400">
+            <p>© 2024 數據視覺化報告</p>
+        </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+
+</html>

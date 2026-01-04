@@ -1,0 +1,105 @@
+/* frontend/static/css/sidebar.css */
+#sidebar {
+    background: white;
+    background-size: cover;
+    background-position: center;
+    border-right: none;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 100 !important;
+}
+
+.mb-12 {
+    background: rgba(17, 0, 0, 0.95)
+}
+
+.logo-box-outer {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px;
+    display: inline-block;
+}
+
+.logo-box-inner {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 15px 25px;
+    color: rgb(255, 255, 255);
+}
+
+.nav-btn {
+    background: transparent !important;
+    color: rgba(228, 50, 50, 0.6) !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center !important;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-active {
+    color: #530404 !important;
+    font-weight: 600;
+}
+
+.sidebar-active::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: rgb(107, 0, 0);
+    margin-left: 12px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* --- 手機版選單按鈕 (Menu Toggle) --- */
+#menu-toggle {
+    /* 1. 位置設定 (想改位置調這裡) */
+    top: 20px;
+    /* 距離頂部 */
+    left: 20px;
+    /* 距離左邊 */
+
+    /* 2. 顏色與外觀 (配合 Dream Pulse 風格) */
+    background-color: rgba(139, 26, 26, 0.877);
+    /* 深色背景 (與側邊欄同色系) */
+    color: white;
+    /* 圖標顏色 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* 加上淡淡的白框 */
+
+    /* 3. 形狀與大小 */
+    border-radius: 8px;
+    /* 50% 是圓形，改 8px 變方塊圓角 */
+    padding: 12px;
+    /* 按鈕大小 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* 陰影讓它浮起來 */
+
+    /* 動畫效果 */
+    transition: all 0.3s ease;
+
+    /* 避免手機點擊時出現預設的藍色框框 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* --- 2. 手機版專用：按下的瞬間變色 (手放開馬上變回來) --- */
+#menu-toggle:active {
+    background-color: #475569;
+    /* 按下時變亮一點 */
+    transform: scale(0.95);
+    /* 按下時稍微縮小，更有按鈕感 */
+}
+
+/* 當目錄開啟時，按鈕的新位置 */
+#menu-toggle.is-open {
+    left: 200px;
+    /* 寬度 256px - 按鈕寬度 = 約 200px，讓它留在目錄內右上角 */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* 開啟時背景變透明，融入目錄 */
+    border-color: rgba(255, 255, 255, 0.5);
+    /* 邊框顏色調淡 */
+    box-shadow: none;
+    /* 移除陰影 */
+}

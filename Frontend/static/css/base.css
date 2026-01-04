@@ -1,0 +1,12 @@
+/* frontend/static/css/base.css */
+:root {
+    --primary: 221 83% 53%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+}
