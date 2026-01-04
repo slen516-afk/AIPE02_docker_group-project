@@ -1,5 +1,6 @@
 #使用前請先記得清掉舊的容器
 #使.env required=flase,docker不需要每次啟動都要讀取github不能上傳的.env檔案
+請記得將.env.example複製一份在專案資料夾裡並改名為.env
 
 # iSpan_AIPE02_T1_docker-project
 Team1_docker-project
