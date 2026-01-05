@@ -7,7 +7,8 @@ LABEL maintainer="tz-frontend"
 # PYTHONDONTWRITEBYTECODE 防止產生 .pyc 檔（保持容器乾淨）
 # PYTHONUNBUFFERED 確保 Log 能即時印出，方便你在 Docker 看到 Flask 的報錯
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \ 
+    BACKEND_URL=http://backend:8000
 
 WORKDIR /app
 
@@ -24,7 +25,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # 6. 告知埠號
-EXPOSE 5000
+EXPOSE 3000
 
 # 7. 啟動指令 
 # 這裡要改成 python app.py 
