@@ -31,6 +31,7 @@ services:
       - ./database/import:/app/import_data
     env_file:
       - path: .env
+      
         required: false
     depends_on:
       db:
