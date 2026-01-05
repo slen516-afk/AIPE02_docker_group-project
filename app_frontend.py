@@ -66,4 +66,4 @@ def get_data():
 
 if __name__ == '__main__':
     # 啟動開發伺服器
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
