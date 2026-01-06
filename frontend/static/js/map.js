@@ -1,14 +1,12 @@
-// frontend/static/js/map.js
-
 /**
  * 顏色計算函式
  * @param {number} d - 數據值
  * @param {number} maxVal - 數據中的最大值，用於計算比例
  */
 function getColor(d, maxVal) {
-    if (!d || d === 0) return '#f1f5f9'; // 無數據時顯示淡灰色
+    if (!d || d === 0) return '#f1f5f9';
     const ratio = d / maxVal;
-    const lightness = 75 - (ratio * 40); // 根據比例調整亮度，數據越多顏色越深
+    const lightness = 75 - (ratio * 40);
     return `hsl(221, 83%, ${lightness}%)`;
 }
 
@@ -43,12 +41,10 @@ const initWorldMap = (mapData, mapNames) => {
     const fitMap = () => {
         map.invalidateSize();
         const isMobile = window.innerWidth < 768;
-        // 手機版使用較大的 padding 使地圖縮小
         const paddingValues = isMobile ? [40, 40] : [10, 10];
         map.fitBounds(worldBounds, { padding: paddingValues, animate: false });
     };
 
-    // 初始調整大小
     setTimeout(fitMap, 100);
     window.addEventListener('resize', () => setTimeout(fitMap, 100));
 
@@ -93,15 +89,12 @@ const initWorldMap = (mapData, mapNames) => {
                 }
             }).addTo(map);
 
-            // 繪製地圖下方的圖例
             renderLegend(mapData, mapNames);
         })
         .catch(err => console.error("GeoJSON 載入失敗:", err));
 };
 
-/**
- * 渲染地圖圖例
- */
+// 繪製地圖圖例
 function renderLegend(data, names) {
     const legend = document.getElementById('map-legend');
     if (!legend || !data || !names) return;

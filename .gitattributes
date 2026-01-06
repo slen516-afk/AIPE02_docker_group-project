@@ -1,0 +1,9 @@
+# 強制重要檔案使用 LF，避免 Windows CRLF 導致 MySQL LOAD DATA/腳本錯誤
+*.sh  text eol=lf
+*.sql text eol=lf
+*.py  text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.env text eol=lf
+*.csv text eol=lf

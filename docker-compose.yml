@@ -1,74 +1,46 @@
 services:
   db:
-    image: mysql:8.0
-    container_name: aipe02_db
-    ports:             # <--- 這裡！這就是開門的關鍵
-      - "3307:3306"
-    healthcheck: # <-- 3. 定義什麼叫做「健康」（能收 SQL 指令才算）
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
+    build: ./database
+    image: aipe02-mysql:8.0-local
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Please set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?Please set MYSQL_DATABASE in .env}
+      MYSQL_USER: ${MYSQL_USER:?Please set MYSQL_USER in .env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Please set MYSQL_PASSWORD in .env}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent" ]
+      interval: 5s
       timeout: 5s
       retries: 5
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-password}
-      MYSQL_DATABASE: ${DB_NAME:-project_db}
-      MYSQL_USER: ${DB_USER:-admin}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-password}
-    volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./database/import/cleaned_data_revise_2.csv:/var/lib/mysql-files/cleaned_data_revise_2.csv
-      - ./database/import:/var/lib/mysql-files 
-      - mysql_data:/var/lib/mysql # 研究這裡
 
   backend:
-    image: aipe02dockergroupproject-backend
     build: ./backend
-    ports:
-      - "8000:8000"
-    restart: always
-    container_name: aipe02_backend
-    volumes:
-      - ./backend:/app
-      - ./database/import:/app/import_data
-    env_file:
-      - path: .env
-      
-        required: false
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: ${MYSQL_DATABASE:?Please set MYSQL_DATABASE in .env}
+      DB_USER: ${MYSQL_USER:?Please set MYSQL_USER in .env}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Please set MYSQL_PASSWORD in .env}
     depends_on:
       db:
         condition: service_healthy
-   
+    expose:
+      - "8001"
 
   frontend:
     build: ./frontend
-    container_name: aipe02_frontend
-    volumes:
-      - ./frontend:/app
+    restart: unless-stopped
     ports:
       - "3000:3000"
-
-  nginx:
-    image: nginx:alpine
-    container_name: aipe02_proxy
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    environment:
+      BACKEND_API_URL: http://backend:8001
     depends_on:
       - backend
-      - frontend
-
-  # 監控任務：監控日誌並記錄失敗
-  monitor:
-    image: python:3.11-slim
-    container_name: aipe02_monitor
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # 允許監控其他容器
-      - .:/app
-    working_dir: /app
-    command: >
-      sh -c "pip install docker && python ./scripts/monitor_reload.py"
-    restart: unless-stopped
 
 volumes:
-  mysql_data:
+  db_data:

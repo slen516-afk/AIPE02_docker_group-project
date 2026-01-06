@@ -1,29 +1,27 @@
 -- 1. 加入這行：暫時關閉嚴格模式，容許資料缺漏
 SET SESSION sql_mode = '';
 
--- 原本的 Create Database (保持不變)
 CREATE DATABASE IF NOT EXISTS project_db;
 USE project_db;
 
--- 原本的 Create Table (保持不變)
-CREATE TABLE `temp_raw_data` (
-  `title` varchar(255) DEFAULT NULL,
-  `telecommuting` tinyint DEFAULT NULL,
-  `has_company_logo` tinyint DEFAULT NULL,
-  `has_questions` tinyint DEFAULT NULL,
-  `employment_type` varchar(100) DEFAULT NULL,
-  `fraudulent` tinyint DEFAULT NULL,
-  `in_balanced_dataset` tinyint DEFAULT NULL,
-  `country` varchar(100) DEFAULT NULL,
-  `industry_group` varchar(100) DEFAULT NULL,
-  `edu_level` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS temp_raw_data;
 
--- 【新增這段】匯入 CSV 資料
--- 注意：這裡的路徑 /var/lib/mysql-files/ 是容器內部的路徑，見第二步說明
+CREATE TABLE temp_raw_data (
+    title VARCHAR(255),
+    telecommuting TINYINT,
+    has_company_logo TINYINT,
+    has_questions TINYINT,
+    employment_type VARCHAR(100),
+    fraudulent TINYINT,
+    in_balanced_dataset TINYINT,
+    country VARCHAR(100),
+    industry_group VARCHAR(255),
+    edu_level VARCHAR(100)
+);
+
 LOAD DATA INFILE '/var/lib/mysql-files/cleaned_data_revise_2.csv'
-INTO TABLE `temp_raw_data`
+INTO TABLE temp_raw_data
 FIELDS TERMINATED BY ',' 
-ENCLOSED BY '"' 
+ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
