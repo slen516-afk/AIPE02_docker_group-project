@@ -99,13 +99,19 @@ def fetch_recruitment_data(engine):
     return {
         "country": pd.read_sql_query(sql_country, engine),
         "features": pd.read_sql_query(sql_features, engine),
+        "education_industry": pd.read_sql_query(sql_edu_ind, engine),
+        "employment_type": pd.read_sql_query(sql_emp_type, engine),
+        "top_industries": pd.read_sql_query(sql_top_industries, engine),
     }
 
 # 數據轉換為輸出 ->雅茜段落打包為function
 def build_analysis_result(dfs):
     return {
-        "country": dfs["country"].to_dict(orient="records"),
+        "country": dfs["country"].to_dict(orient="columns"),
         "features": dfs["features"].iloc[0].to_dict(),
+        "education_industry": dfs["education_industry"].to_dict(orient="columns"),
+        "employment_type": dfs["employment_type"].to_dict(orient="columns"),
+        "top_industries": dfs["top_industries"].to_dict(orient="columns"),
     }
 
 
