@@ -16,6 +16,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD:-password}
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/import/cleaned_data_revise_2.csv:/var/lib/mysql-files/cleaned_data_revise_2.csv
       - ./database/import:/var/lib/mysql-files 
       - mysql_data:/var/lib/mysql # 研究這裡
 

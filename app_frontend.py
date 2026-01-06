@@ -1,5 +1,4 @@
 import os
-import requests
 from flask import Flask, render_template, jsonify
 
 # 自動鎖定路徑，避免 Windows 系統路徑錯誤
@@ -65,24 +64,6 @@ def get_data():
     
     return jsonify(data)
 
-# # API連線寫法
-# BACKEND_URL = os.getenv('BACKEND_URL', 'http://backend:8000')
-
-# @app.route('/api/data')
-# def get_data():
-#     try:
-#         # 後端拼接 API 路徑
-#         # 注意：埠號要改成 8000
-#         target_url = f"{BACKEND_URL}/api/backend_mysql_route" 
-        
-#         response = requests.get(target_url, timeout=5)
-        
-#         if response.status_code == 200:
-#             return jsonify(response.json())
-#         return jsonify({"error": "Backend API error"}), 500
-#     except Exception as e:
-#         return jsonify({"error": f"Connection failed: {str(e)}"}), 500
-
 if __name__ == '__main__':
     # 啟動開發伺服器
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    app.run(debug=True)
