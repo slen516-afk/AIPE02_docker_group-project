@@ -72,8 +72,6 @@ Team1_docker-project
 		git push
 
 ### 注意事項
-- 容器切換：依照工作角色選擇對應的 devcontainer。
+- Dev Container：本專案只提供 **一份** `.devcontainer/devcontainer.json`，開啟後會使用 `docker compose` 啟動 `db / backend / frontend` 三個服務。
 - Volume 掛載：devcontainer 會掛載本地程式碼，修改即時反映於容器內。
-- WSL2 特別注意：
-	- Docker Desktop 需啟用 WSL2 後端
-	-確認 Ubuntu WSL2 版本 ≥ 24.04
+- WSL2 特別注意： - Docker Desktop 需啟用 WSL2 後端 - 確認 Ubuntu WSL2 版本 ≥ 24.04

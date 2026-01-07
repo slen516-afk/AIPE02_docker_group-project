@@ -1,26 +1,20 @@
 {
-    "name": "AIPE02-Backend-Dev",
-    "dockerComposeFile": "../docker-compose.yml", // 修正：通常 .devcontainer 在根目錄下，只需往上一層
-    "service": "backend",
-    "runServices": [
-        "db"
-    ],
-    "shutdownAction": "stopCompose",
-    "workspaceFolder": "/app",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-python.python",
-                "ms-python.vscode-pylance", // 強大的 Python 代碼補全與檢查
-                "ms-toolsai.jupyter", // 這樣你才能在 Container 裡跑 .ipynb
-                "mechatroner.rainbow-csv", // 讓你這幾天看的 CSV 變彩色，欄位好對齊
-                "ms-azuretools.vscode-docker",
-                "mtxr.sqltools", // 直接在 VS Code 側邊欄點開看資料庫內容
-                "mtxr.sqltools-driver-mysql", // SQLTools 使用的 MySQL 驅動
-                "charliermarsh.ruff" // 比 pylint 快非常多的代碼自動排版工具
-            ]
-        }
-    },
-    "remoteUser": "root",
-    "postCreateCommand": "pip install --upgrade pip" // 容器建立後自動升級 pip
+  "name": "AIPE02 Docker Project",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "backend",
+  "runServices": [
+    "db",
+    "backend",
+    "frontend"
+  ],
+  "shutdownAction": "stopCompose",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
 }

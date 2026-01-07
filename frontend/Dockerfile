@@ -1,14 +1,12 @@
-FROM node:20-slim
-
-LABEL maintainer="tz"
+FROM python:3.11.14-slim
 
 WORKDIR /app
 
-# 若後續有增加 package.json 需求
-# COPY package.json* ./
-RUN npm install -g live-server
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# 開發時使用 live-server 達成 Hot Reload
-CMD ["live-server", "--port=3000", "--host=0.0.0.0"]
+EXPOSE 3000
+
+CMD ["python", "app.py"]
