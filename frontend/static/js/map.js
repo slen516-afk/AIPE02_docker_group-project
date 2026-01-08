@@ -77,7 +77,7 @@ const initWorldMap = (mapData, mapNames) => {
                     const countryName = mapNames[code] || props.name || "未知國家";
 
                     if (value > 0) {
-                        layer.bindTooltip(`<strong>${countryName}</strong><br/>數據量: ${value}`, {
+                        layer.bindTooltip(`<strong>${countryName}</strong><br/>虛假招募職缺數: ${value}`, {
                             sticky: true,
                             direction: 'top'
                         });

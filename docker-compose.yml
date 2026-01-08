@@ -20,6 +20,8 @@ services:
   backend:
     build: ./backend
     restart: unless-stopped
+    # ports:
+    # - "8001:8001" #測試後端用，正式環境不開放外部連線
     environment:
       DB_HOST: db
       DB_PORT: "3306"
