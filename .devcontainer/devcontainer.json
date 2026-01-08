@@ -8,7 +8,7 @@
     "frontend"
   ],
   "shutdownAction": "stopCompose",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/app",
   "customizations": {
     "vscode": {
       "extensions": [

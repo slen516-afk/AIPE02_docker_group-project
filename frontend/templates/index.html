@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>求職詐騙分析-報告</title>
+    <title>求職防詐分析報告</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
@@ -37,7 +38,7 @@
             </div>
             <ul class="space-y-6 text-center w-full" id="nav-items">
             </ul>
-            <div class="mt-auto text-xs text-slate-400">© 2024 REPORT</div>
+            <div class="mt-auto text-xs text-slate-400">© 2024 求職防詐分析</div>
         </div>
     </nav>
 
@@ -50,10 +51,10 @@
                     <div class="flex-1 text-center lg:text-left z-10">
                         <h1
                             class="mb-6 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-white drop-shadow-md">
-                            求職詐騙分析
+                            求職防詐分析
                         </h1>
                         <p class="mb-8 text-lg text-slate-200 md:text-xl max-w-2xl mx-auto lg:mx-0 font-light">
-                            什麼樣的職缺特徵，與詐騙高度相關？
+                            什麼樣的職缺特徵，與詐騙風險有關？
                         </p>
                     </div>
                     <div class="flex-1 flex justify-center lg:justify-end z-10">
@@ -66,54 +67,60 @@
 
         <section id="ranking" class="py-16 bg-slate-50/50 scroll-mt-20 border-b">
             <div class="container mx-auto px-4">
-                <h2 class="mb-2 text-center text-3xl font-bold">虛假招募資料裡前五名高的職稱</h2>
+                <h2 class="mb-2 text-center text-3xl font-bold">虛假招募職缺 Top 5 職稱</h2>
                 <div class="mx-auto max-w-4xl rounded-xl bg-white p-8 shadow-sm border">
                     <canvas id="rankingChart"></canvas>
                 </div>
             </div>
         </section>
 
-        {% with id="section-1", title="數據分析一：圓餅圖分析", canvas_id="pieChart", subtitle="類別分佈概況", desc="類別 A 佔據了
-        33%，具有重要的戰略意義。", dir="", bg="" %}
+        {% with id="section-1", title="數據分析一：虛假招募比例", canvas_id="pieChart", subtitle="整體分佈概況",
+        desc="顯示資料集中『虛假招募』與『一般』職缺的占比。", dir="", bg="" %}
         {% include 'includes/_chart_section.html' %}
         {% endwith %}
 
-        {% with id="section-2", title="數據分析二：趨勢變化", canvas_id="lineChart", subtitle="半年度銷售趨勢",
-        desc="此圖表展示了過去六個月的銷售變化趨勢。", dir="lg:flex-row-reverse", bg="bg-slate-50/30 border-y", has_table=True,
+        {% with id="section-2", title="數據分析二：聘僱型態分佈（Top 6）", canvas_id="lineChart", subtitle="聘僱型態筆數對比",
+        desc="觀察可疑職缺在不同聘僱型態的筆數分佈，用於辨識異常集中。", dir="lg:flex-row-reverse", bg="bg-slate-50/30 border-y",
+        has_table=True,
         table_id="table-container-1" %}
         {% include 'includes/_chart_section.html' %}
         {% endwith %}
 
-        {% with id="section-3", title="數據分析三：區域比較", canvas_id="areaChart", subtitle="數據峰值觀察",
-        desc="透過區域圖可以清楚看出累計數據的變化。", dir="", bg="", has_stats=True %}
+        {% with id="section-3", title="數據分析三：詐騙風險對比", canvas_id="areaChart", subtitle="產業分佈對比",
+        desc="比較各產業類別（Top 6）中「詐騙/非詐騙」職缺筆數差異，用於辨識高風險產業集中度。", dir="", bg="", has_stats=True %}
         {% include 'includes/_chart_section.html' %}
         {% endwith %}
 
-        {% with id="section-4", title="數據分析四：多維評估", canvas_id="radarChart", subtitle="綜合維度分析",
-        desc="雷達圖能展示單一項目在不同屬性上的表現平衡度。", dir="lg:flex-row-reverse", bg="bg-slate-50/30 border-y", has_table=True,
+        {% with id="section-4", title="數據分析四：詐騙特徵雷達", canvas_id="radarChart", subtitle="多維紅旗特徵",
+        desc="雷達圖用於呈現可疑特徵的相對強度（例如：遠端、無公司Logo、無面試題目(Questions)、聘僱型態未知、產業未知）。", dir="lg:flex-row-reverse",
+        bg="bg-slate-50/30
+        border-y",
+        has_table=True,
         table_id="table-container-2" %}
         {% include 'includes/_chart_section.html' %}
         {% endwith %}
 
-        {% with id="section-5", title="數據分析五：分組對比分析", canvas_id="groupedBarChart", subtitle="分組數據觀察",
-        desc="展示不同類別在多個維度下的對比情況。", dir="", bg="" %}
+        {% with id="section-5", title="數據分析五：紅旗條件對比", canvas_id="groupedBarChart", subtitle="分組對比觀察",
+        desc="比較『有/無公司Logo』分組下的詐騙 vs 非詐騙筆數差異，用於快速判讀風險落差。", dir="", bg="" %}
         {% include 'includes/_chart_section.html' %}
         {% endwith %}
 
-        {% with id="section-6", title="數據分析六：成分結構分析", canvas_id="stackedBarChart", subtitle="累積貢獻度分析",
-        desc="堆疊圖能清晰顯示總量以及各組成部分的佔比。", dir="lg:flex-row-reverse", bg="bg-slate-50/30 border-y" %}
+        {% with id="section-6", title="數據分析六：國家別紅旗結構（Top 6）", canvas_id="stackedBarChart", subtitle="紅旗佔比概況",
+        desc="以國家 Top 6 觀察紅旗訊號筆數：有遠端、無公司Logo、無面試題目，用於辨識可疑來源集中度。", dir="lg:flex-row-reverse", bg="bg-slate-50/30
+        border-y" %}
         {% include 'includes/_chart_section.html' %}
         {% endwith %}
 
         {% with id="section-7", title="數據分析七：相關性分析", canvas_id="scatterChart", subtitle="變量關聯觀察",
-        desc="散點圖用於探索兩個數值變量之間的相關程度。", dir="", bg="" %}
+        desc="右上角（雙指標皆高）： 顯示雇主投入度高，職缺資訊相對透明且完整。 左下角（雙指標皆低）： 顯示刊登門檻低，可能為異常或低品質職缺，需優先納入風控檢視。", dir="", bg="" %}
         {% include 'includes/_chart_section.html' %}
         {% endwith %}
+
 
         {% include 'includes/_world_map.html' %}
 
         <footer class="border-t py-12 text-center text-slate-400">
-            <p>© 2024 數據視覺化報告</p>
+            <p>© 2024 求職防詐數據報告</p>
         </footer>
     </main>
 
